@@ -21,7 +21,7 @@ A simulated web application for train ticket booking built with React.js and Tai
 - **React Router DOM** - Routing
 - **Tailwind CSS** - Styling
 - **Vite** - Build tool
-- **localStorage** - Data persistence (no backend required)
+- **localStorage** - Data persistence 
 
 ## Installation
 
@@ -101,27 +101,7 @@ All data is stored in browser's localStorage:
 - Bookings: `bookings_{userId}`
 - Trains: `trains` (admin-managed)
 
-## Notes
 
-- This is a frontend-only application with no backend
-- All data is stored locally in the browser
-- Payment processing is simulated (no real transactions)
-- Train data is mock data for demonstration purposes
-- Clear browser data to reset the application
 
-## Available Stations (Mock Data)
-
-- Delhi
-- Mumbai
-- Kolkata
-- Chennai
-- Bangalore
-- Hyderabad
-- Pune
-- Ahmedabad
-
-## License
-
-This project is for educational/demonstration purposes only.
 
 
