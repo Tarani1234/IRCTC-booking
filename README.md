@@ -91,15 +91,6 @@ src/
    - Manage bookings (view all bookings, cancel bookings)
    - Manage trains (add, edit, delete trains)
 
-## Data Storage
-
-All data is stored in browser's localStorage:
-- User accounts: `users`
-- Current user: `currentUser`
-- Payment methods: `paymentMethods_{userId}`
-- Passengers: `passengers_{userId}`
-- Bookings: `bookings_{userId}`
-- Trains: `trains` (admin-managed)
 
 
 
