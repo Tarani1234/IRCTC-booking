@@ -13,22 +13,36 @@ export default function Login({ onLogin }) {
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem('users') || '[]')
 
-    const adminExists = users.some(
-      u => u.email === 'admin@irctc.com' && u.role === 'admin'
+    const adminEmail = 'admin@irctc.com'
+    const adminPassword = 'admin123'
+
+    const adminIndex = users.findIndex(
+      u => (u.email || '').toLowerCase() === adminEmail.toLowerCase()
     )
 
-    if (!adminExists) {
+    if (adminIndex === -1) {
       users.push({
         id: 'admin-001',
         name: 'Admin',
-        email: 'admin@irctc.com',
-        password: 'admin123',
+        email: adminEmail,
+        password: adminPassword,
         role: 'admin',
         createdAt: new Date().toISOString()
       })
-
-      localStorage.setItem('users', JSON.stringify(users))
+    } else {
+      // Upsert admin: ensure role + credentials are correct even if an old record exists
+      users[adminIndex] = {
+        ...users[adminIndex],
+        id: users[adminIndex].id || 'admin-001',
+        name: users[adminIndex].name || 'Admin',
+        email: adminEmail,
+        password: adminPassword,
+        role: 'admin',
+        createdAt: users[adminIndex].createdAt || new Date().toISOString()
+      }
     }
+
+    localStorage.setItem('users', JSON.stringify(users))
   }, [])
 
   const handleSubmit = (e) => {
@@ -38,10 +52,13 @@ export default function Login({ onLogin }) {
     // 🔁 Always read fresh users
     const users = JSON.parse(localStorage.getItem('users') || '[]')
 
+    const email = formData.email.trim().toLowerCase()
+    const password = formData.password
+
     const user = users.find(
       u =>
-        u.email.toLowerCase() === formData.email.toLowerCase() &&
-        u.password === formData.password
+        (u.email || '').trim().toLowerCase() === email &&
+        u.password === password
     )
 
     if (!user) {
